@@ -52,13 +52,11 @@ app.delete('/account/:account_number',(req,res)=>{
 
 app.put('/account/:account_number',(req,res)=>{
     let user = {
-        "account_number":req.body.account_number,
         "branch_name": req.body.branch_name,
         "balance": req.body.balance,
     };
     let sql ='UPDATE account SET ? WHERE account_number = ?';
-
-    connection.query(sql,[req.params.account_number],(err,results,fields)=>{
+    connection.query(sql,[user,req.params.account_number],(err,results,fields)=>{
         if(err)throw err;
         res.json(results);
     })
